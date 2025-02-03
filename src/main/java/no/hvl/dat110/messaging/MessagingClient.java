@@ -26,14 +26,19 @@ public class MessagingClient {
 
 		MessageConnection connection = null;
 		
-		// TODO - START
 		// connect to messaging server using a TCP socket
 		// create and return a corresponding messaging connection
+		try {
+			clientSocket = new Socket(server, port);
+			connection = new MessageConnection(clientSocket);
+
+
+		} catch (Exception e) {
+			System.out.println("Error in connecting to " + server + ":" + port);
+			e.printStackTrace();
+			System.exit(1);
+		}
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
 		return connection;
 	}
 }
