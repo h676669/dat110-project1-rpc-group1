@@ -32,8 +32,7 @@ public class MessagingClient {
 			clientSocket = new Socket(server, port);
 			connection = new MessageConnection(clientSocket);
 
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println("Error in connecting to " + server + ":" + port);
 			e.printStackTrace();
 			System.exit(1);

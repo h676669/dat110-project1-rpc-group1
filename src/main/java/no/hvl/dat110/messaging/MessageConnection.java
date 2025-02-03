@@ -50,8 +50,16 @@ public class MessageConnection {
 		byte[] data;
 		
 		// read a segment from the input stream and decapsulate data into a Message
-		inStream.
-		
+		try {
+			data = new byte[MessageUtils.SEGMENTSIZE];
+			inStream.readFully(data);
+			message = MessageUtils.decapsulate(data);
+
+		} catch (Exception e){
+			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(1);
+		}
 		return message;
 		
 	}

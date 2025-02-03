@@ -33,8 +33,7 @@ public class MessagingServer {
 
 		// accept TCP connection on welcome socket and create messaging connection to be returned
 		try {
-			Socket socket = new Socket(welcomeSocket.getInetAddress(),welcomeSocket.getLocalPort());
-			connection = new MessageConnection(socket);
+			connection = new MessageConnection(welcomeSocket.accept());
 		} catch (Exception e){
 			System.out.println("Messaging server: " + e.getMessage());
 
