@@ -31,15 +31,11 @@ public class MessageUtils {
 	}
 
 	public static Message decapsulate(byte[] segment) {
-
-		Message message = null;
-		
-
 		// decapsulate segment and put received payload data into a message
+		byte[] data = new byte[segment[0]];
+		System.arraycopy(segment, 1, data, 0, data.length);
 
-
-
-		return message;
+		return new Message(data);
 		
 	}
 	
