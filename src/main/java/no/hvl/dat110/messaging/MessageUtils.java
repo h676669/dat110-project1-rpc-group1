@@ -16,10 +16,6 @@ public class MessageUtils {
 		byte[] segment = new byte[SEGMENTSIZE];
 		byte[] data = message.getData();
 
-
-
-		
-
 		// encapulate/encode the payload data of the message and form a segment
 		// according to the segment format for the messaging layer
 
