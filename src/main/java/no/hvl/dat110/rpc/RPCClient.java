@@ -25,7 +25,7 @@ public class RPCClient {
 	}
 
 	/*
-	 Make a remote call om the method on the RPC server by sending an RPC request message and receive an RPC reply message
+	 Make a remote call on the method on the RPC server by sending an RPC request message and receive an RPC reply message
 
 	 rpcid is the identifier on the server side of the method to be called
 	 param is the marshalled parameter of the method to be called
@@ -35,8 +35,6 @@ public class RPCClient {
 		
 		byte[] returnval = null;
 		
-		// TODO - START
-
 		/*
 
 		The rpcid and param must be encapsulated according to the RPC message format
@@ -44,11 +42,9 @@ public class RPCClient {
 		The return value from the RPC call must be decapsulated according to the RPC message format
 
 		*/
+
+
 				
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
 		return returnval;
 		
 	}
