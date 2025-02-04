@@ -12,20 +12,20 @@ public class RPCUtils {
 
 		// Encapsulate the rpcid and payload in a byte array according to the RPC message syntax / format
 		if (payload == null) {
-			payload = new byte[0];s
+			payload = new byte[0];
 		}
 		rpcmsg = new byte[payload.length + 1];
 		rpcmsg[0] = rpcid;
-		System.arraycopy(payload, 0, rpcmsg, 1, payload.length - 1);
+		System.arraycopy(payload, 0, rpcmsg, 1, payload.length);
 		return rpcmsg;
 	}
 	
 	public static byte[] decapsulate(byte[] rpcmsg) {
-		
+
 		byte[] payload = null;
-		
+
 		// Decapsulate the rpcid and payload in a byte array according to the RPC message syntax
-		if(rpcmsg != null || rpcmsg.length < 1){
+		if(rpcmsg == null || rpcmsg.length < 1){
 			throw new UnsupportedOperationException();
 		}
 		payload = new byte[rpcmsg.length-1];

@@ -42,11 +42,14 @@ public class RPCClient {
 		The return value from the RPC call must be decapsulated according to the RPC message format
 
 		*/
+		byte[] request = RPCUtils.encapsulate(rpcid,param);
 
+		connection.send(new Message(request));
 
-				
-		return returnval;
-		
+		Message responseMsg = connection.receive();
+		byte[] response = responseMsg.getData();
+
+		return RPCUtils.decapsulate(response);
 	}
 
 }

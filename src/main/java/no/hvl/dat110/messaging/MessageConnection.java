@@ -45,23 +45,17 @@ public class MessageConnection {
 	}
 
 	public Message receive() {
-
-		Message message = null;
-		byte[] data;
-		
-		// read a segment from the input stream and decapsulate data into a Message
 		try {
-			data = new byte[MessageUtils.SEGMENTSIZE];
-			inStream.readFully(data);
-			message = MessageUtils.decapsulate(data);
+			byte[] data = new byte[MessageUtils.SEGMENTSIZE];
 
-		} catch (Exception e){
-			System.out.println("Error: " + e.getMessage());
-			e.printStackTrace();
-			System.exit(1);
+			// read a segment from the input stream and decapsulate data into a Message
+			inStream.readFully(data);
+
+			return MessageUtils.decapsulate(data);
+		} catch (IOException ex) {
+			System.out.println("Connection: " + ex.getMessage());
 		}
-		return message;
-		
+		return null;
 	}
 
 	// close the connection by closing streams and the underlying socket	
