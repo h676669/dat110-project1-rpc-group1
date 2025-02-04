@@ -88,8 +88,7 @@ class TestSystem {
 		
 		// we check only termination here
 		assertTrue(true);
-			
-	
+
 	}
 
 }
