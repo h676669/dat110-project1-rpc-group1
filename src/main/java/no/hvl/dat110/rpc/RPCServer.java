@@ -24,7 +24,6 @@ public class RPCServer {
 	}
 
 	public void run() {
-
 		// the stop RPC method is built into the server
 		RPCRemoteImpl rpcstop = new RPCServerStopImpl(RPCCommon.RPIDSTOP,this);
 		register(RPCCommon.RPIDSTOP, rpcstop);
@@ -36,44 +35,37 @@ public class RPCServer {
 		System.out.println("RPC SERVER ACCEPTED");
 
 		boolean stop = false;
+		try {
+			while (!stop) {
 
-		while (!stop) {
+				Message requestmsg = connection.receive();
+				byte[] requestData = requestmsg.getData();
 
-		   byte rpcid = 0;
+				byte rpcid = requestData[0];
 
-		   // - receive a Message containing an RPC request
-		   // - extract the identifier for the RPC method to be invoked from the RPC request
-		   // - extract the method's parameter by decapsulating using the RPCUtils
-		   // - lookup the method to be invoked
-		   // - invoke the method and pass the param
-		   // - encapsulate return value
-		   // - send back the message containing the RPC reply
-			Message requestmsg = connection.receive();
-			byte[] requestData = requestmsg.getData();
+				byte[] params = RPCUtils.decapsulate(requestData);
 
-			byte rcpid = requestData[0];
+				RPCRemoteImpl service = services.get(rpcid);
 
-			byte[] params = RPCUtils.decapsulate(requestData);
+				if (service == null) {
+					System.out.println("RPC SERVICE NOT FOUND");
+					byte[] responseData = RPCUtils.encapsulate(rpcid,new byte[0]);
+					connection.send(new Message(responseData));
+					continue;
+				}
+				System.out.println("RPC SERVICE FOUND");
+				byte[] reply = service.invoke(params);
+				reply = RPCUtils.encapsulate(rpcid, reply);
+				connection.send(new Message(reply));
 
-			RPCRemoteImpl service = services.get(rcpid);
-
-			if (service == null) {
-				System.out.println("RPC SERVICE NOT FOUND");
-				byte[] responseData = RPCUtils.encapsulate(rpcid,new byte[0]);
-				connection.send(new Message(responseData));
-				continue;
+				// stop the server if it was stop methods that was called
+				if (rpcid == RPCCommon.RPIDSTOP) {
+					stop = true;
+				}
 			}
-			System.out.println("RPC SERVICE FOUND");
-			byte[] reply = service.invoke(params);
-			reply = RPCUtils.encapsulate(rpcid, reply);
-			connection.send(new Message(reply));
-
-			// stop the server if it was stop methods that was called
-			if (rpcid == RPCCommon.RPIDSTOP) {
-				stop = true;
-		   	}
+		} catch (Exception e){
+			e.printStackTrace();
 		}
-
 	}
 	
 	// used by server side method implementations to register themselves in the RPC server
