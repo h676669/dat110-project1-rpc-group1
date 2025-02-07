@@ -1,9 +1,7 @@
 package no.hvl.dat110.system.controller;
 
-import no.hvl.dat110.TODO;
 import no.hvl.dat110.rpc.RPCClient;
 import no.hvl.dat110.rpc.RPCClientStopStub;
-import no.hvl.dat110.system.display.DisplayDevice;
 
 public class Controller  {
 	

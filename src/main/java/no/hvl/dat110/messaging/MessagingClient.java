@@ -3,8 +3,6 @@ package no.hvl.dat110.messaging;
 
 import java.net.Socket;
 
-import no.hvl.dat110.TODO;
-
 public class MessagingClient {
 
 	// name/IP address of the messaging server

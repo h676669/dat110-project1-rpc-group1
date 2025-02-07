@@ -1,12 +1,7 @@
 package no.hvl.dat110.messaging;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
-
-import no.hvl.dat110.TODO;
-import org.apache.maven.settings.Server;
 
 public class MessagingServer {
 
